@@ -16,6 +16,12 @@ pipeline {
             }
         }
 
+        stage('List Files') {
+            steps {
+                bat "dir" // Lists files in current workspace
+            }
+        }
+
         stage('Setup Python and Dependencies') {
             steps {
                 bat """
