@@ -6,7 +6,7 @@ pipeline {
         PYTHON_SCRIPT_LOAD = 'scripts\\load_csv_to_gcp.py'
         PYTHON_SCRIPT_SUMMARY = 'scripts\\generate_summary.py'
         SUMMARY_FILE = 'upload_summary.txt'
-        EMAIL_RECIPIENT = 'gogulanavateja1910@gmail.com'
+        EMAIL_RECIPIENT = 'gogulanavateja10@gmail.com'
     }
 
     stages {
@@ -29,7 +29,7 @@ pipeline {
         stage('Load CSV to GCP') {
             steps {
                 bat """
-                    "${env.PYTHON_PATH}" ${env.PYTHON_SCRIPT_LOAD}
+                    "${env.PYTHON_PATH}" "${env.PYTHON_SCRIPT_LOAD}"
                 """
             }
         }
@@ -37,29 +37,20 @@ pipeline {
         stage('Generate Summary Report') {
             steps {
                 bat """
-                    "${env.PYTHON_PATH}" ${env.PYTHON_SCRIPT_SUMMARY}
+                    "${env.PYTHON_PATH}" "${env.PYTHON_SCRIPT_SUMMARY}"
                 """
             }
         }
 
         stage('Email Summary') {
             steps {
-                script {
-                    def summaryContent = readFile(env.SUMMARY_FILE)
-                    emailext (
-                        subject: "Data Migrated Successfully to SQL Server",
-                        body: """\
-Data has been successfully migrated to the SQL Server.
-
-You can find the final migration report below:
-
-${summaryContent}
-""",
-                        to: "${env.EMAIL_RECIPIENT}",
-                        from: 'gogulateja92@gmail.com',
-                        attachmentsPattern: "${env.SUMMARY_FILE}"
-                    )
-                }
+                emailext (
+                    subject: "✅ Jenkins Pipeline Test Email",
+                    body: "This is a test email sent from Jenkins pipeline using emailext.",
+                    to: "${env.EMAIL_RECIPIENT}",
+                    from: "gogulateja92@gmail.com",
+                    mimeType: 'text/plain'
+                )
             }
         }
     }
@@ -67,7 +58,7 @@ ${summaryContent}
     post {
         failure {
             emailext (
-                subject: "GCP Upload Pipeline FAILED",
+                subject: "❌ GCP Upload Pipeline FAILED",
                 body: """\
 The Jenkins job has failed.
 
