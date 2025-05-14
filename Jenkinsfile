@@ -56,7 +56,7 @@ pipeline {
 
         stage('Zip Summary') {
             steps {
-                bat 'powershell Compress-Archive -Path upload_summary.txt -DestinationPath upload_summary.zip'
+                bat 'powershell -Command "Compress-Archive -Path upload_summary.txt -DestinationPath upload_summary.zip -Force"'
             }
         }
 
