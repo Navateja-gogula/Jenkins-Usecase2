@@ -63,7 +63,9 @@ ${summaryContent}
 """,
                         to: "gogulanavateja10@gmail.com",
                         from: 'gogulateja92@gmail.com',
-                        attachmentsPattern: "${env.SUMMARY_FILE}"
+                        attachmentsPattern: '**/upload_summary.txt',
+                        mimeType: 'text/plain'
+
                     )
                 }
             }
