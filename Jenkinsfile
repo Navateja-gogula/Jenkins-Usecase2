@@ -6,7 +6,7 @@ pipeline {
         PYTHON_SCRIPT_LOAD = 'scripts\\load_csv_to_gcp.py'
         PYTHON_SCRIPT_SUMMARY = 'scripts\\generate_summary.py'
         SUMMARY_FILE = 'upload_summary.txt'
-        EMAIL_RECIPIENT = 'srikarvanaparthy21@gmail.com'
+        EMAIL_RECIPIENT = 'srikarvanaparthy@gmail.com'
     }
 
     stages {
@@ -46,8 +46,8 @@ pipeline {
     steps {
         script {
             def summaryContent = readFile(env.SUMMARY_FILE)
-            emailext (
-                subject: "✅ Data Migrated Successfully to SQL Server",
+            mail (
+                subject: "Data Migrated Successfully to SQL Server",
                 body: """\
 Data has been successfully migrated to the SQL Server.
 
@@ -56,7 +56,8 @@ You can find the final migration report below:
 ${summaryContent}
 """,
                 to: "${env.EMAIL_RECIPIENT}",
-                from: 'srikarvanaparthy@gmail.com'
+                from: 'gogulateja92@gmail.com',
+                attachmentsPattern: "${env.SUMMARY_FILE}"
             )
         }
     }
@@ -66,10 +67,10 @@ ${summaryContent}
 
     post {
     failure {
-        emailext(
+        mail(
             to: "${env.EMAIL_RECIPIENT}",
-            from: 'srikarvanaparthy@gmail.com',
-            subject: "❌ GCP Upload Pipeline FAILED",
+            from: 'gogulateja92@gmail.com',
+            subject: "GCP Upload Pipeline FAILED",
             body: """\
             The Jenkins job has failed.
 
