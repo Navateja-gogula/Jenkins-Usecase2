@@ -5,7 +5,7 @@ pipeline {
         PYTHON_PATH = 'C:\\Users\\Admin-BL\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
         PYTHON_SCRIPT_LOAD = 'scripts\\load_csv_to_gcp.py'
         PYTHON_SCRIPT_SUMMARY = 'scripts\\generate_summary.py'
-        SUMMARY_FILE = 'upload_summary.txt'
+        SUMMARY_FILE = 'summary.doc'
         EMAIL_RECIPIENT = 'gogulanavateja10@gmail.com'
     }
 
@@ -64,8 +64,8 @@ ${summaryContent}
 """,
                         to: "gogulanavateja10@gmail.com",
                         from: 'gogulateja92@gmail.com',
-                        attachmentsPattern: 'upload_summary.txt',
-                        mimeType: 'text/plain'
+                        attachmentsPattern: 'summary.doc',
+                        mimeType: 'application/msword'
                     )
                 }
             }

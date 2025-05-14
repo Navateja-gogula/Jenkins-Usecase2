@@ -9,7 +9,7 @@ import os
 
 BASE_DIR = os.path.dirname(__file__)
 
-SUMMARY_FILE = os.path.join(BASE_DIR, '..', 'upload_summary.txt')
+SUMMARY_FILE = os.path.join(BASE_DIR, '..', 'summary.doc')
 
 ROW_COUNT_FILE = os.path.join(BASE_DIR, '..', 'row_count.txt')
  
