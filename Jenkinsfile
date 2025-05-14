@@ -50,13 +50,22 @@ pipeline {
 
         stage('Email Summary') {
             steps {
-                emailext (
-                    subject: "✅ Jenkins Pipeline Test Email",
-                    body: "This is a test email sent from Jenkins pipeline using emailext.",
-                    to: "gogulanavateja10@gmail.com",
-                    from: "gogulateja92@gmail.com",                   
-                    mimeType: 'text/plain'
-                )
+                script {
+                    def summaryContent = readFile(env.SUMMARY_FILE)
+                    emailext (
+                        subject: "✅ Data Migrated Successfully to SQL Server",
+                        body: """\
+Data has been successfully migrated to the SQL Server.
+
+You can find the final migration report below:
+
+${summaryContent}
+""",
+                        to: "gogulanavateja10@gmail.com",
+                        from: 'gogulateja92@gmail.com',
+                        attachmentsPattern: "${env.SUMMARY_FILE}"
+                    )
+                }
             }
         }
     }
@@ -64,6 +73,8 @@ pipeline {
     post {
         failure {
             emailext (
+                to: "gogulanavateja10@gmail.com",
+                from: 'gogulateja92@gmail.com',
                 subject: "❌ GCP Upload Pipeline FAILED",
                 body: """\
 The Jenkins job has failed.
@@ -71,9 +82,7 @@ The Jenkins job has failed.
 Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 URL: ${env.BUILD_URL}
-""",
-                to: "gogulanavateja10@gmail.com",
-                from: 'gogulateja92@gmail.com'
+"""
             )
         }
     }
