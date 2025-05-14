@@ -54,6 +54,11 @@ pipeline {
             }
         }
 
+        stage('Zip Summary') {
+            steps {
+                bat 'powershell Compress-Archive -Path upload_summary.txt -DestinationPath upload_summary.zip'
+            }
+        }
 
         stage('Email Summary') {
             steps {
@@ -70,9 +75,8 @@ ${summaryContent}
 """,
                         to: "gogulanavateja10@gmail.com",
                         from: 'gogulateja92@gmail.com',
-                        attachmentsPattern: 'upload_summary.txt',
+                        attachmentsPattern: 'upload_summary.zip',
                         mimeType: 'text/plain'
-
                     )
                 }
             }
