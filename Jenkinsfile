@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout Repository') {
             steps {
-                git url: 'https://github.com/SrikarVanaparthy/Jenkins-usecase-2.git', branch: 'main'
+                git url: 'https://github.com/Navateja-gogula/Jenkins-Usecase2.git', branch: 'main'
             }
         }
 
