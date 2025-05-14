@@ -48,6 +48,13 @@ pipeline {
             }
         }
 
+        stage('List Files') {
+            steps {
+                bat "dir" // Lists files in current workspace
+            }
+        }
+
+
         stage('Email Summary') {
             steps {
                 script {
