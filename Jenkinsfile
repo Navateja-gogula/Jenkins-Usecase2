@@ -54,8 +54,7 @@ pipeline {
                     subject: "✅ Jenkins Pipeline Test Email",
                     body: "This is a test email sent from Jenkins pipeline using emailext.",
                     to: "gogulanavateja10@gmail.com",
-                    from: "gogulateja92@gmail.com",
-                    replyTo: "gogulateja92@gmail.com",
+                    from: "gogulateja92@gmail.com",                   
                     mimeType: 'text/plain'
                 )
             }
@@ -74,8 +73,7 @@ Build Number: ${env.BUILD_NUMBER}
 URL: ${env.BUILD_URL}
 """,
                 to: "gogulanavateja10@gmail.com",
-                from: 'gogulateja92@gmail.com',
-                replyTo: "gogulateja92@gmail.com"
+                from: 'gogulateja92@gmail.com'
             )
         }
     }
