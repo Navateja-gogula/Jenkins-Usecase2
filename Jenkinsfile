@@ -48,7 +48,7 @@ pipeline {
             }
         }
 
-        stage('List Files') {
+        stage('List') {
             steps {
                 bat "dir" // Lists files in current workspace
             }
